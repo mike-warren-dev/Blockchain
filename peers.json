@@ -1,0 +1,23 @@
+[
+    {
+        "ip":"10.0.0.1",
+        "port":2339,
+        "id":"05768dba-92c5-4ddf-8e26-fb2348485603",
+        "status":"unknown",
+        "lastContact":null
+    },
+    {
+        "ip":"10.0.0.2",
+        "port":2339,
+        "id":"05768dba-92c5-4ddf-8e26-fb2348485604",
+        "status":"unknown",
+        "lastContact":null
+    },
+    {
+        "ip":"10.0.0.3",
+        "port":2339,
+        "id":"05768dba-92c5-4ddf-8e26-fb2348485605",
+        "status":"unknown",
+        "lastContact":null
+    }
+]
