@@ -39,9 +39,9 @@ public class TcpServer
 
             //route the call
 
-            string[] parts = receivedData.Substring(6,receivedData.Length - 5).Split('|');
+            string[] parts = receivedData.Split('|');
 
-            switch (receivedData.Substring(0,5))
+            switch (parts[0])
             {
                 case "intro":
                     IntroParser(parts, clientAddress, clientPort);

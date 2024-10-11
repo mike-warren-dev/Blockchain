@@ -1,19 +1,19 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text;
 
-// TcpServer server = new();
-// server.StartServer(2339);
+ TcpServer server = new();
+ server.StartServer(2339);
 
-PeerManager peerManager = new(); 
+// PeerManager peerManager = new(); 
 
-Chain chain = Chain.Instance;
+// Chain chain = Chain.Instance;
 
-Console.WriteLine(chain.Blocks.Count);
+// Console.WriteLine(chain.Blocks.Count);
 
-while (chain.Blocks.Count < 10) {
-    Console.WriteLine($"Current count = {chain.Blocks.Count}");
-    chain.GenerateNextBlock(Guid.NewGuid().ToString());
-}
+// while (chain.Blocks.Count < 10) {
+//     Console.WriteLine($"Current count = {chain.Blocks.Count}");
+//     chain.GenerateNextBlock(Guid.NewGuid().ToString());
+// }
 
 // Console.WriteLine("done baybee!");
 
@@ -22,7 +22,14 @@ while (chain.Blocks.Count < 10) {
 // server.StartServer(2339);
 
 //TODOS
-//need to be able to hash a block.
-//need to be able to add blocks to a chain. 
-//need to be able to validate the chain. 
-//need to be able to search for solutions. 
+//FIRST, figure out how to make both my tcpServer and tcpClient methods async instead of blocking. 
+//On startup, start server. 
+//    > How to handle conflicting/occupied ports? 
+//On startup, create client singleton(?)
+//    > figure out how client can listen without blocking. 
+//When find new block, broadcast. 
+//    > generate string for transmission
+//    > transmit
+//    > handle response 
+//listen for new block, try to add, 
+//    > handle bad block, how to move to new block if good block. 
