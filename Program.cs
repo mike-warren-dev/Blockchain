@@ -1,8 +1,11 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text;
 
- TcpServer server = new();
- server.StartServer(2339);
+// TcpServer server = new();
+AsyncTcpServer server = new();
+ await server.StartServer(2339);
+
+Console.WriteLine("Am I really waiting, though?");
 
 // PeerManager peerManager = new(); 
 

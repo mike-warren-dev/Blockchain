@@ -40,31 +40,39 @@ public class TcpServer
             //route the call
 
             string[] parts = receivedData.Split('|');
+            string responseString = parts[0] switch {
+                "intro" => IntroParser(parts, clientAddress, clientPort),
+                "nbloc" => NewBlockParser(parts),
+                "lbloc" => LastBlockParser(parts),
+                "peers" => GetPeersParser(parts),
+                "blocs" => GetBlocksParser(parts),
+                _ => ReturnError(parts)
+            }; 
 
-            switch (parts[0])
-            {
-                case "intro":
-                    IntroParser(parts, clientAddress, clientPort);
-                    break;
-                case "nbloc":
-                    NewBlockParser(parts);
-                    break;
-                case "lbloc":
-                    LastBlockParser(parts);
-                    break;
-                case "peers":
-                    GetPeersParser(parts);
-                    break;
-                case "blocs":
-                    GetBlocksParser(parts);
-                    break;
-                default:
-                    ReturnError(parts);
-                    break;
-            }
+            // switch (parts[0])
+            // {
+            //     case "intro":
+            //         IntroParser(parts, clientAddress, clientPort);
+            //         break;
+            //     case "nbloc":
+            //         NewBlockParser(parts);
+            //         break;
+            //     case "lbloc":
+            //         LastBlockParser(parts);
+            //         break;
+            //     case "peers":
+            //         GetPeersParser(parts);
+            //         break;
+            //     case "blocs":
+            //         GetBlocksParser(parts);
+            //         break;
+            //     default:
+            //         ReturnError(parts);
+            //         break;
+            // }
 
             // Send a response
-            byte[] response = Encoding.ASCII.GetBytes("Message Received (robot voice)");
+            byte[] response = Encoding.ASCII.GetBytes(responseString);
             stream.Write(response, 0, response.Length);
 
             client.Close();
@@ -77,7 +85,7 @@ public class TcpServer
         Console.WriteLine("Server stopped.");
     }
 
-    public void IntroParser(string[] parts, string clientAddress, int clientPort)
+    public string IntroParser(string[] parts, string clientAddress, int clientPort)
     {
         string introId = parts[0];
         int port = Int32.TryParse(parts[1], out int temp) ? temp : -1;
@@ -94,9 +102,12 @@ public class TcpServer
             peer.lastContact = DateTime.UtcNow;
             peer.port = clientPort;
         }
+
+        //TODO: RETURN REAL STRING!
+        return "";
     }
 
-    public void NewBlockParser(string[] parts)
+    public string NewBlockParser(string[] parts)
     {
         //nblock|b635d80a154e89d4eea6350d16214604114959e84cdc66eb25676f9359422ef4|1|1|some text|b635d80a154e89d4eea6350d16214604114959e84cdc66eb25676f9359422ef4
         //{call}|{64chars}|
@@ -104,13 +115,13 @@ public class TcpServer
         
         if (index < Chain.Instance.Blocks.Count) 
         {
-            //reply to inform sender they're behind
-            return;
+            //TODO: reply to inform sender they're behind
+            return "";
         }
         else if (index > Chain.Instance.Blocks.Count)
         {
-            //investigate, as receiver might be behind!
-            return;
+            //TODO: investigate, as receiver might be behind!
+            return "";
         }
         //else index is correct
         
@@ -131,26 +142,29 @@ public class TcpServer
             // public string Stuff { get; set; }
             // public byte[] PreviousBlock { get; set; }
 
+
+        //TODO: handle all possibilities! ALL!!!!!1!
+        return "";
     }
 
-    public void LastBlockParser(string[] parts)
+    public string LastBlockParser(string[] parts)
     {
-        
+        return "";
     }
 
-    public void GetPeersParser(string[] parts)
+    public string GetPeersParser(string[] parts)
     {
-        
+        return "";
     }
 
-    public void GetBlocksParser(string[] parts)
+    public string GetBlocksParser(string[] parts)
     {
-        
+        return "";
     }
 
-    public void ReturnError(string[] parts)
+    public string ReturnError(string[] parts)
     {
-        
+        return "error";
     }
 
     private byte[] HexStringToByteArray(string hex)
